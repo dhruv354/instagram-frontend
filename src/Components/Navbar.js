@@ -21,11 +21,7 @@ function Navbar() {
               <Link to="/Signup">Signup</Link>
             </li>
             <li>
-              <Link to="/Profile">
-                <IconButton>
-                  <PeopleIcon />
-                </IconButton>
-              </Link>
+              <Link to="/Profile">Profile</Link>
             </li>
           </ul>
         </div>

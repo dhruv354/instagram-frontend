@@ -1,0 +1,21 @@
+/* container of profile */
+
+.profile-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 18px 0px;
+  border-bottom: 1px solid grey;
+  /* width: 1%; */
+}
+
+.profile-img {
+  height: 160px;
+  width: 160px;
+  border-radius: 100%;
+}
+
+.profile-details {
+  display: flex;
+  justify-content: space-between;
+  width: 108%;
+}
