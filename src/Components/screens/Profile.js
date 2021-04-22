@@ -4,7 +4,7 @@ import "../../ComponentsCss/Profile.css";
 
 function Profile() {
   return (
-    <div>
+    <div className="container">
       <div className="profile-container">
         <div className="img-container">
           <img
@@ -20,6 +20,24 @@ function Profile() {
             <h6>40 following</h6>
           </div>
         </div>
+      </div>
+      <div className="gallery">
+        <img
+          className="item"
+          src="https://images.unsplash.com/photo-1542103749-8ef59b94f47e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+        />
+        <img
+          className="item"
+          src="https://images.unsplash.com/photo-1542103749-8ef59b94f47e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+        />
+        <img
+          className="item"
+          src="https://images.unsplash.com/photo-1542103749-8ef59b94f47e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+        />
+        <img
+          className="item"
+          src="https://images.unsplash.com/photo-1542103749-8ef59b94f47e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+        />
       </div>
     </div>
   );
