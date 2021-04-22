@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../../ComponentsCss/createPost.css";
+
 function createPost() {
   return (
     <div className="card input-filed">
@@ -7,13 +9,20 @@ function createPost() {
       <input type="text" placeholder="body" />
       <div className="file-field input-field">
         <div className="btn">
-          <span>File</span>
+          <span>Upload File</span>
           <input type="file" />
         </div>
         <div className="file-path-wrapper">
           <input className="file-path validate" type="text" />
         </div>
       </div>
+      <button
+        className="btn waves-effect waves-light blue"
+        type="submit"
+        name="action"
+      >
+        Submit post
+      </button>
     </div>
   );
 }
