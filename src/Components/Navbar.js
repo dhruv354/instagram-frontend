@@ -23,6 +23,9 @@ function Navbar() {
             <li>
               <Link to="/Profile">Profile</Link>
             </li>
+            <li>
+              <Link to="/create">create</Link>
+            </li>
           </ul>
         </div>
       </nav>

@@ -6,7 +6,7 @@ import "../../ComponentsCss/Login.css";
 function Login() {
   return (
     <div className="my-card">
-      <div className="card auth-card input-field">
+      <div className=" auth-card input-field">
         <h2>Instagram</h2>
         <input type="email" placeholder="email" />
         <input type="password" placeholder="password" />
