@@ -4,14 +4,29 @@ import M from "materialize-css";
 
 import "../../ComponentsCss/Login.css";
 
+// const regex_email =
+//   "[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$/;
+
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
   const postData = () => {
+    if (
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        email
+      ) === false
+    ) {
+      return M.toast({
+        html: "invalid email",
+        classes: "#e57373 red lighten-2",
+      });
+    } //else {
+    //   return console.log("valid");
+    // }
+
     fetch("http://localhost:8000/signup", {
-      method: "post",
       headers: {
         "Content-Type": "application/json",
       },
@@ -24,13 +39,14 @@ function Signup() {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          M.toast({ html: data.error });
+          M.toast({ html: data.error, classes: "#e57373 red lighten-2" });
         } else {
-          M.toast({ html: data.message });
-          history.push("/login");
+          M.toast({ html: data.message, classes: "#43a047 green darken-1 " });
+          history.push("/signin");
         }
-        console.log(data);
-      });
+      })
+      .catch((err) => console.log(err));
+    // console.log(data);
   };
 
   return (
@@ -44,7 +60,7 @@ function Signup() {
           onChange={(e) => setName(e.target.value)}
         />
         <input
-          type="email"
+          type="text"
           placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
