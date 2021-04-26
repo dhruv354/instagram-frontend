@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { Link, useHistory } from "react-router-dom";
+import M from "materialize-css";
 import "../../ComponentsCss/createPost.css";
 
 function CreatePost() {
@@ -7,6 +8,8 @@ function CreatePost() {
   const [body, setBody] = useState("");
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
+
+  const history = useHistory();
 
   const postDetails = () => {
     const data = new FormData();
@@ -18,10 +21,41 @@ function CreatePost() {
       body: data,
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        setUrl(data.url);
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+
+    /**********************making a post request to server and posting data to database***********************/
+    fetch("http://localhost:8000/createpost", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        body,
+        image: url,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.error) {
+          M.toast({ html: data.error, classes: "#e57373 red lighten-2" });
+        } else {
+          M.toast({
+            html: "created post successfully",
+            classes: "#43a047 green darken-1 ",
+          });
+          history.push("/");
+        }
+      })
       .catch((err) => console.log(err));
   };
 
+  /*************returning jsx************************ */
   return (
     <div className="card input-filed">
       <input
