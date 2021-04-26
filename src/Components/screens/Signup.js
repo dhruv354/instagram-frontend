@@ -27,6 +27,7 @@ function Signup() {
     // }
 
     fetch("http://localhost:8000/signup", {
+      method: "post",
       headers: {
         "Content-Type": "application/json",
       },
