@@ -11,6 +11,37 @@ function CreatePost() {
 
   const history = useHistory();
 
+  useEffect(() => {
+    if (url) {
+      fetch("http://localhost:8000/createpost", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+        body: JSON.stringify({
+          title,
+          body,
+          image: url,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.error) {
+            M.toast({ html: data.error, classes: "#e57373 red lighten-2" });
+          } else {
+            M.toast({
+              html: "created post successfully",
+              classes: "#43a047 green darken-1 ",
+            });
+            history.push("/");
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [url]);
+
   const postDetails = () => {
     const data = new FormData();
     data.append("file", image);
@@ -28,31 +59,6 @@ function CreatePost() {
       .catch((err) => console.log(err));
 
     /**********************making a post request to server and posting data to database***********************/
-    fetch("http://localhost:8000/createpost", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        body,
-        image: url,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.error) {
-          M.toast({ html: data.error, classes: "#e57373 red lighten-2" });
-        } else {
-          M.toast({
-            html: "created post successfully",
-            classes: "#43a047 green darken-1 ",
-          });
-          history.push("/");
-        }
-      })
-      .catch((err) => console.log(err));
   };
 
   /*************returning jsx************************ */

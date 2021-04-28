@@ -38,6 +38,8 @@ function Login() {
         if (data.error) {
           M.toast({ html: data.error, classes: "#e57373 red lighten-2" });
         } else {
+          localStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
           M.toast({ html: "signedin", classes: "#43a047 green darken-1 " });
           history.push("/");
         }
