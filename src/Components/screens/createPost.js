@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import M from "materialize-css";
 import "../../ComponentsCss/createPost.css";
@@ -13,6 +13,7 @@ function CreatePost() {
 
   useEffect(() => {
     if (url) {
+      /**********************making a post request to server and posting data to database***********************/
       fetch("http://localhost:8000/createpost", {
         method: "post",
         headers: {
@@ -57,8 +58,6 @@ function CreatePost() {
         console.log(data);
       })
       .catch((err) => console.log(err));
-
-    /**********************making a post request to server and posting data to database***********************/
   };
 
   /*************returning jsx************************ */
