@@ -19,6 +19,18 @@ function Navbar() {
           <li>
             <Link to="/create">create</Link>
           </li>
+          <li>
+            <button
+              className="btn waves-effect waves-light "
+              type="submit"
+              onClick={() => {
+                localStorage.clear();
+                dispatch({ type: "CLEAR" });
+              }}
+            >
+              Logout
+            </button>
+          </li>
         </>,
       ];
     } else {
