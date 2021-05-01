@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import M from "materialize-css";
 
+import { UserContext } from "../../App";
 import "../../ComponentsCss/Home.css";
 function Home() {
+  const history = useHistory();
+  const { state, dispatch } = useContext(UserContext);
+  if (!state) {
+    M.toast({
+      html: "please signin",
+      classes: "#e57373 red lighten-2",
+    });
+    history.push("/signin");
+  }
   return (
     <div className="home">
       <div className="card home-card">
