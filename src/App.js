@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useReducer } from "react";
+import React, { createContext, useEffect, useReducer, useContext } from "react";
 import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
 
 import Home from "./Components/screens/Home";
@@ -12,11 +12,13 @@ import { initialState, reducer } from "./Components/reducers/userReducer";
 export const UserContext = createContext();
 
 const Routing = () => {
+  const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     console.log(typeof user, user);
     if (user) {
+      dispatch({ type: "USER", payload: user });
       history.push("/");
     } else {
       history.push("/signin");
