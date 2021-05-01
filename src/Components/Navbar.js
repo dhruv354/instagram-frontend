@@ -39,7 +39,7 @@ function Navbar() {
     <div>
       <nav>
         <div className="nav-wrapper white">
-          <Link to="/" className="brand-logo">
+          <Link to={state ? "/" : "/signin"} className="brand-logo">
             Instagram
           </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">

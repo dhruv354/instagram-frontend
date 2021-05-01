@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import M from "materialize-css";
 
 import { UserContext } from "../../App";
 import "../../ComponentsCss/Home.css";
 function Home() {
+  //logic for avoiding home display without being signed in
   const history = useHistory();
   const { state, dispatch } = useContext(UserContext);
   if (!state) {
@@ -14,22 +15,45 @@ function Home() {
     });
     history.push("/signin");
   }
+
+  //logic to  fetch all posts from database
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/allposts", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setData(result);
+        // setData(result.posts);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <div className="home">
-      <div className="card home-card">
-        <h5>Ramesh</h5>
-        <div className="card-image">
-          <img src="https://images.unsplash.com/photo-1542103749-8ef59b94f47e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" />
-        </div>
-        <div className="card-content">
-          <i className="material-icons" style={{ color: "red" }}>
-            favorite
-          </i>
-          <h6>TItle</h6>
-          <p>this is amazing post</p>
-          <input type="text" placeholder="add a comment" />
-        </div>
-      </div>
+      {data.map((post) => {
+        return (
+          <div className="card home-card">
+            <h5>{post.postedBy.name}</h5>
+            <div className="card-image">
+              <img src={post.photo} />
+            </div>
+            <div className="card-content">
+              <i className="material-icons" style={{ color: "red" }}>
+                favorite
+              </i>
+              <h6>{post.title}</h6>
+              <p>{post.body}</p>
+              <input type="text" placeholder="add a comment" />
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
