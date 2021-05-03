@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PeopleIcon from "@material-ui/icons/People";
 import IconButton from "@material-ui/core/IconButton";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { UserContext } from "../App";
 import "../ComponentsCss/Navbar.css";
@@ -9,6 +9,7 @@ import "../ComponentsCss/Navbar.css";
 function Navbar() {
   const { state, dispatch } = useContext(UserContext);
 
+  const history = useHistory("/");
   const renderList = () => {
     if (state) {
       return [
@@ -26,6 +27,7 @@ function Navbar() {
               onClick={() => {
                 localStorage.clear();
                 dispatch({ type: "CLEAR" });
+                history.push("/signin");
               }}
             >
               Logout
