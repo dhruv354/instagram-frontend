@@ -100,15 +100,34 @@ function Home() {
               <i className="material-icons" style={{ color: "red" }}>
                 favorite
               </i>
-              <i className="material-icons" onClick={() => likePost(post._id)}>
+
+              {post.likes.includes(state._id) ? (
+                <i
+                  className="material-icons"
+                  onClick={() => unLikePost(post._id)}
+                >
+                  thumb_down
+                </i>
+              ) : (
+                <i
+                  className="material-icons"
+                  onClick={() => likePost(post._id)}
+                >
+                  thumb_up
+                </i>
+              )}
+
+              {/* <i className="material-icons" onClick={() => likePost(post._id)}>
                 thumb_up
               </i>
+
               <i
                 className="material-icons"
                 onClick={() => unLikePost(post._id)}
               >
                 thumb_down
-              </i>
+              </i> */}
+
               <h6>{post.likes.length} likes</h6>
               <h6>{post.title}</h6>
               <p>{post.body}</p>
