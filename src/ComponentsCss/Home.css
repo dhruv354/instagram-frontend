@@ -3,3 +3,11 @@
   height: max-content;
   margin: 26px auto !important;
 }
+
+.comment-container {
+  padding: 3px;
+}
+
+.comment-author {
+  font-weight: bold;
+}

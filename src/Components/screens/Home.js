@@ -5,22 +5,11 @@ import M from "materialize-css";
 import { UserContext } from "../../App";
 import "../../ComponentsCss/Home.css";
 function Home() {
-  //logic for avoiding home display without being signed in
   const history = useHistory();
   const { state, dispatch } = useContext(UserContext);
-  // if (!state) {
-  //   M.toast({
-  //     html: "please signin",
-  //     classes: "#e57373 red lighten-2",
-  //   });
-  //   history.push("/signin");
-  // } else {
-  //   history.push("/");
-  // }
-
-  //logic to  fetch all posts from database
   const [data, setData] = useState([]);
 
+  /*****************************liking freind post ********************************** */
   const likePost = (id) => {
     fetch("/like", {
       method: "put",
@@ -47,6 +36,7 @@ function Home() {
       .catch((err) => console.log(err));
   };
 
+  /****************************************unliking a post**************************************** */
   const unLikePost = (id) => {
     fetch("/unlike", {
       method: "put",
@@ -72,6 +62,36 @@ function Home() {
       });
   };
 
+  /*******************************************commenting on post ******************************* */
+
+  const postComment = (text, postId) => {
+    fetch("/comment", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      body: JSON.stringify({
+        text,
+        postId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        const newData = data.map((post) => {
+          if (post._id == result._id) {
+            return result;
+          } else {
+            return post;
+          }
+        });
+        setData(newData);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  /******************************************fetching all posts from database ************************** */
   useEffect(() => {
     fetch("http://localhost:8000/allposts", {
       headers: {
@@ -87,6 +107,8 @@ function Home() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  /******************************************************returning jsx*********************************************** */
   return (
     <div className="home">
       {data.map((post) => {
@@ -117,21 +139,29 @@ function Home() {
                 </i>
               )}
 
-              {/* <i className="material-icons" onClick={() => likePost(post._id)}>
-                thumb_up
-              </i>
-
-              <i
-                className="material-icons"
-                onClick={() => unLikePost(post._id)}
-              >
-                thumb_down
-              </i> */}
-
               <h6>{post.likes.length} likes</h6>
               <h6>{post.title}</h6>
               <p>{post.body}</p>
-              <input type="text" placeholder="add a comment" />
+
+              {post.comments.map((comment) => {
+                return (
+                  <h6 className="comment-container">
+                    <span className="comment-author">
+                      {comment.postedBy.name}
+                    </span>{" "}
+                    <span className="comment=text"> {comment.text}</span>
+                  </h6>
+                );
+              })}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  postComment(e.target[0].value, post._id);
+                  // console.log(e.target[0].value);
+                }}
+              >
+                <input type="text" placeholder="add a comment" />
+              </form>
             </div>
           </div>
         );

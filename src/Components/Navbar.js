@@ -54,7 +54,7 @@ function Navbar() {
       <nav>
         <div className="nav-wrapper white">
           <Link to={state ? "/" : "/signin"} className="brand-logo">
-            Instagram
+            InstaApp
           </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             {renderList()}

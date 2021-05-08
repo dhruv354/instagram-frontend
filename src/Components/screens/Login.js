@@ -54,7 +54,7 @@ function Login() {
   return (
     <div className="my-card">
       <div className=" auth-card input-field">
-        <h2>Instagram</h2>
+        <h2>InstaApp</h2>
         <input
           type="email"
           placeholder="email"
