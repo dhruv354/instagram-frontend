@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import M from "materialize-css";
 
 import { UserContext } from "../../App";
@@ -134,7 +134,12 @@ function Home() {
       {data.map((post) => {
         return (
           <div className="card home-card" key={post._id}>
-            <h5>{post.postedBy.name}</h5>
+            <h5 className="name-heading">
+              <Link to={`/profile/${post.postedBy._id}`}>
+                {post.postedBy.name}
+              </Link>
+              {/* {post.postedBy.name} */}
+            </h5>
             {post.postedBy._id == state._id && (
               <i
                 className="material-icons delete-icon"

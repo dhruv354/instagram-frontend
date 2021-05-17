@@ -13,6 +13,7 @@ function Profile() {
 
   useEffect(() => {
     fetch(`/user/${userid}`, {
+      method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
@@ -43,7 +44,7 @@ function Profile() {
             <h4>{userProfile.user.name}</h4>
             <h5>{userProfile.user.email}</h5>
             <div className="profile-details">
-              <h6>{userProfile.posts.length}</h6>
+              <h6>{userProfile.posts.length} posts</h6>
               <h6>40 followers</h6>
               <h6>40 following</h6>
             </div>

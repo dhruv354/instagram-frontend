@@ -2,6 +2,13 @@
   max-width: 500px;
   height: max-content;
   margin: 26px auto !important;
+  /* padding: 1px; */
+  z-index: 100;
+  box-shadow: 10px solid red;
+}
+
+.name-heading {
+  cursor: pointer;
 }
 
 .material-icons {
