@@ -4,6 +4,17 @@
   margin: 26px auto !important;
 }
 
+.material-icons {
+  cursor: pointer;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 2px;
+}
+
 .comment-container {
   padding: 3px;
 }

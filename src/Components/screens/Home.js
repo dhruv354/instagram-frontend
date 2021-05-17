@@ -91,6 +91,26 @@ function Home() {
       .catch((err) => console.log(err));
   };
 
+  /*******************************************deleting post**********************/
+
+  const removePost = (postId) => {
+    fetch(`/delete/${postId}`, {
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        const newData = data.filter((post) => {
+          return post._id !== result._id;
+        });
+        setData(newData);
+      })
+      .catch((err) => console.log(err));
+  };
+
   /******************************************fetching all posts from database ************************** */
   useEffect(() => {
     fetch("http://localhost:8000/allposts", {
@@ -115,6 +135,15 @@ function Home() {
         return (
           <div className="card home-card" key={post._id}>
             <h5>{post.postedBy.name}</h5>
+            {post.postedBy._id == state._id && (
+              <i
+                className="material-icons delete-icon"
+                onClick={() => removePost(post._id)}
+              >
+                delete
+              </i>
+            )}
+
             <div className="card-image">
               <img src={post.photo} />
             </div>
@@ -145,7 +174,7 @@ function Home() {
 
               {post.comments.map((comment) => {
                 return (
-                  <h6 className="comment-container">
+                  <h6 key={comment._id} className="comment-container">
                     <span className="comment-author">
                       {comment.postedBy.name}
                     </span>{" "}
@@ -157,6 +186,7 @@ function Home() {
                 onSubmit={(e) => {
                   e.preventDefault();
                   postComment(e.target[0].value, post._id);
+                  e.target[0].value = "";
                   // console.log(e.target[0].value);
                 }}
               >
