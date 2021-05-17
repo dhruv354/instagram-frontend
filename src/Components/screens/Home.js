@@ -135,8 +135,10 @@ function Home() {
         return (
           <div className="card home-card" key={post._id}>
             <h5 className="name-heading">
-              <Link to={`/profile/${post.postedBy._id}`}>
+              {/* {console.log("inside home route and making request from here")} */}
+              <Link to={`/Profile/${post.postedBy._id}`}>
                 {post.postedBy.name}
+                {console.log(post.postedBy.name)}
               </Link>
               {/* {post.postedBy.name} */}
             </h5>
