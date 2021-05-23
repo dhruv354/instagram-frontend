@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 
 import { UserContext } from "../../App";
 import "../../ComponentsCss/Profile.css";
+import '../../ComponentsCss/UserProfile.css'
 
 function UserProfile() {
   const [userProfile, setUserProfile] = useState([]);
   const { state, dispatch } = useContext(UserContext);
-  //   console.log(state);
+  // console.log('logging the redux state\n');
+  // console.log(state);
   const { userid } = useParams();
   console.log(userid);
 
@@ -21,8 +23,8 @@ function UserProfile() {
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log('log from useEffect call\n');
         console.log(result);
-        // console.log(result);
         setUserProfile(result);
       });
   }, []);
@@ -41,7 +43,20 @@ function UserProfile() {
       }),
     })
       .then((res) => res.json())
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        dispatch({type: 'UPDATE',
+         payload: {following: result.following,
+            followers: result.followers
+        }})
+        localStorage.setItem("user", JSON.stringify(result))
+        setUserProfile((prevState) => {
+          return {
+            ...prevState, 
+            user: result
+          }
+        })
+      })
       .catch((err) => console.log(err));
   };
 
@@ -62,9 +77,17 @@ function UserProfile() {
               <h5>{userProfile.user.email}</h5>
               <div className="profile-details">
                 <h6>{userProfile.posts.length} posts</h6>
-                <h6>40 followers</h6>
-                <h6>40 following</h6>
+                <h6>{userProfile.user.followers.length} followers</h6>
+                <h6>{userProfile.user.following.length} following</h6>
               </div>
+              <button
+                className="Follow-button btn waves-effect waves-light "
+                type="submit"
+                name="action"
+                onClick={() => followUser()}
+              >
+                Follow
+              </button>
             </div>
           </div>
           <div className="gallery">
